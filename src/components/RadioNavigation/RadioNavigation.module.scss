@@ -1,0 +1,32 @@
+.nav {
+  font-weight: var(--fontWeight-4);
+  line-height: 4.4rem;
+  color: var(--text-night-quaternary);
+  transition: color linear .1s;
+}
+
+.navList {
+  display: flex;
+  place-items: center;
+}
+
+.navListLink {
+  transition: var(--transition);
+
+  &:hover {
+    color: var(--text-night-primary);
+  }
+
+  &:focus {
+    color: var(--text-night-primary);
+  }
+}
+
+.activeLink {
+  color: var(--system-pure-white);
+  text-decoration: underline;
+  text-underline-offset: var(--spacing-6);
+  text-decoration-color: var(--brand-accent);
+  text-decoration-thickness: 0.2rem;
+  cursor: text;
+}

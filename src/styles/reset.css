@@ -1,0 +1,79 @@
+/* Reset.css — современный сброс стилей (2024) */
+:where(:root) {
+	color-scheme: light dark;
+	text-size-adjust: none;
+	-webkit-text-size-adjust: none;
+}
+
+/* Убираем внутренние/внешние отступы и задаём border-box */
+:where(*, *::before, *::after) {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	min-width: 0;
+}
+
+/* Базовая типографика */
+:where(html) {
+	block-size: 100%;
+	font-family: system-ui, -apple-system, sans-serif;
+	line-height: 1.5;
+}
+
+:where(body) {
+	min-block-size: 100%;
+}
+
+/* Сброс стилей для текстовых элементов */
+:where(h1, h2, h3, h4, h5, h6, p, ul, ol, dl, blockquote, pre) {
+	margin: 0;
+	font-size: inherit;
+	font-weight: inherit;
+}
+
+:where(a) {
+	color: inherit;
+	text-decoration: none;
+}
+
+/* Списки без маркеров */
+:where(ul, ol) {
+	list-style: none;
+}
+
+/* Изображения и SVG */
+:where(img, picture, svg, video) {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+/* Формы и интерактивные элементы */
+:where(button, input, textarea, select) {
+	font: inherit;
+	color: inherit;
+	background: transparent;
+	border-radius: 0;
+}
+
+:where(button, [type='button'], [type='reset'], [type='submit']) {
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+	appearance: none;
+}
+
+/* Доступность для скрытых элементов */
+:where([hidden]) {
+	display: none !important;
+}
+
+/* Отключение анимаций для пользователей с prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+	:where(*, *::before, *::after) {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}

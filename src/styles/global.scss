@@ -1,0 +1,126 @@
+:root {
+  --system-pure-white: #ffffff;
+  --text-light-primary: #2A2A2A;
+  --text-light-secondary: #5B5B5B;
+  --text-light-trietary: #7A7A7A;
+  --text-light-quaternary:
+    #A8A8A8;
+  --text-day-primary: #2A2A2A;
+  --text-night-primary: #EBEBEB;
+  --text-night-secondary: #A8A8A8;
+  --text-night-trietary: #7A7A7A;
+  --text-night-quaternary: #5B5B5B;
+  --brand-accent: #FC581F;
+  --neutrals-900: #141414;
+  --neutrals-850: #1A1A1A;
+  --neutrals-800: #242424;
+  --neutrals-700: #2A2A2A;
+  --neutrals-600: #3D3D3D;
+  --neutrals-500: #5B5B5B;
+  --neutrals-400: #7A7A7A;
+  --neutrals-300: #A8A8A8;
+  --neutrals-200: #DBDBDB;
+  --neutrals-100: #EBEBEB;
+  --neutrals-050: #F5F4F4;
+  --neutrals-025: #FAFAFA;
+  --fontSize-1: 1.4rem;
+  --fontSize-2: 1.6rem;
+  --fontSize-3: 1.8rem;
+  --fontSize-6: 3.6rem;
+  --fontWeight-1: 400;
+  --fontWeight-2: 600;
+  --fontWeight-3: 800;
+  --fontWeight-4: 900;
+  --spacing-1: 4rem;
+  --spacing-2: 3rem;
+  --spacing-3: 2rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.2rem;
+  --spacing-6: .8rem;
+  --spacing-7: 1.6rem;
+  --dark-primary: #141414;
+  --transition: linear .1s;
+  --border-radius-1: 4px;
+  --border-radius-2: 8px;
+  --border-radius-3: 12px;
+  --border-radius-4: 16px;
+  --border-radius-5: 20px;
+  --border-radius-6: 24px;
+}
+
+html,
+body {
+  font-size: 10px;
+}
+
+* {
+  user-select: none;
+}
+
+input,
+textarea,
+[contenteditable] {
+  user-select: text;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  min-width: 100vw;
+  line-height: 1.5;
+  font-family: "Roboto", Verdana, sans-serif;
+  font-optical-sizing: auto;
+  font-weight: var(--fontWeight-1);
+  font-variation-settings:
+    "wdth" 100;
+  color-scheme: light dark;
+  color: var(--text-night-primary);
+  background-color: var(--dark-primary);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  font-size: var(--fontSize-2);
+}
+
+button {
+  white-space: nowrap;
+}
+
+input,
+button,
+img,
+a {
+  border: none;
+  outline: none !important;
+}
+
+.text {
+  white-space: normal;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.wrapper {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+.wrapper.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.wrapper.noActive {
+  opacity: 0;
+  transform: translateY(-10px);
+}

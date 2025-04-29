@@ -1,0 +1,24 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+}
+
+.btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-6) var(--spacing-7);
+  color: var(--system-pure-white);
+  transition: color var(--transition);
+
+  &:hover {
+    color: var(--brand-accent);
+  }
+
+  & svg {
+    color: var(--brand-accent);
+    margin-left: 3rem;
+  }
+}

@@ -1,0 +1,12 @@
+.upgradePremium {
+  display: flex;
+  place-items: center;
+  gap: var(--spacing-6);
+  font-size: var(--fontSize-1);
+  color: var(--text-night-secondary);
+  transition: var(--transition);
+
+  &:hover {
+    color: var(--brand-accent);
+  }
+}

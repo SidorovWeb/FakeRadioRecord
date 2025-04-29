@@ -1,0 +1,50 @@
+.layout {
+  display: flex;
+  place-items: center;
+  gap: .2rem;
+
+  & .btnGrid {
+    border-radius: var(--border-radius-2)0 0 var(--border-radius-2);
+    padding: var(--spacing-6) var(--spacing-5);
+  }
+
+  & .btnColumns {
+    border-radius: 0 var(--border-radius-2) var(--border-radius-2) 0;
+    padding: var(--spacing-6) var(--spacing-5);
+  }
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: var(--spacing-6) var(--spacing-7);
+  font-weight: var(--fontWeight-2);
+  background-color: var(--neutrals-800);
+  border-radius: var(--border-radius-2);
+  transition: color var(--transition);
+  color: var(--system-pure-white);
+
+  & > svg {
+    color: var(--text-night-trietary);
+    transition: all var(--transition);
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, .1);
+  }
+
+  &:focus {
+    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.4);
+  }
+}
+
+.activeLayout {
+  background: rgba(255, 255, 255, .1);
+
+  & > svg {
+    color: var(--system-pure-white);
+  }
+
+}

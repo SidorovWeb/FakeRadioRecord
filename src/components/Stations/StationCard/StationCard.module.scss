@@ -1,0 +1,93 @@
+.cardWrapper {
+  position: relative;
+  width: 100%;
+  background-color: var(--dark-primary);
+  border-radius: var(--border-radius-2);
+
+  &:hover {
+
+    .cardDotsVertical {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    & > .card:not(.isActive) {
+      background: rgba(255, 255, 255, .1);
+
+
+      & .cardIcon > svg > path {
+        fill: var(--neutrals-025);
+      }
+    }
+  }
+
+  &.isActive {
+    &:hover {
+      & .card {
+        background: var(--brand-accent);
+      }
+    }
+
+    & .card {
+      background: var(--brand-accent);
+    }
+
+    & .cardIcon > svg > path {
+      fill: var(--neutrals-025);
+    }
+
+    & .cardDotsVertical {
+      fill: var(--neutrals-025);
+    }
+  }
+}
+
+.card {
+  height: 16rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--spacing-6) var(--spacing-6) var(--spacing-5);
+  background: rgba(255, 255, 255, .07);
+  background-color: var(--neutrals-800);
+  border-radius: var(--border-radius-2);
+  transition: background var(--transition), box-shadow var(--transition);
+
+  &:focus {
+    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.4);
+  }
+}
+
+
+.cardIcon {
+  width: 96px;
+  height: 96px;
+
+  & > svg > path {
+    fill: var(--neutrals-400);
+  }
+}
+
+.cardText {
+  height: 44px;
+  display: flex;
+  place-items: center;
+}
+
+.cardDotsVertical {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  visibility: hidden;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity var(--transition);
+  z-index: 2;
+  fill: var(--neutrals-400);
+
+  &:hover {
+    fill: var(--neutrals-025);
+  }
+}
