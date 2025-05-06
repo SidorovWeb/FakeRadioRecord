@@ -1,12 +1,21 @@
 import { FC, useEffect, useState } from 'react'
-import { useDataStore } from '../../../store/store'
+import { useStore } from '../../../store/store'
 import StationCard from '../StationCard/StationCard'
 import s from './StationsList.module.scss'
 
 const StationsList: FC = () => {
-	const { stations, loading, error, fetchData } = useDataStore()
-	const emptyData = useDataStore(state => state.stations.length === 0)
+	const {
+		stations,
+		sortedNewestStation,
+		sortedAlphabetStation,
+		sortedBy,
+		loading,
+		error,
+		fetchData,
+	} = useStore()
+	const emptyData = useStore(state => state.stations.length === 0)
 	const [activeId, setActiveId] = useState<number | null>(null)
+	const [filteredStations, setFilteredStations] = useState([...stations])
 
 	useEffect(() => {
 		if (!emptyData) {
@@ -15,6 +24,20 @@ const StationsList: FC = () => {
 
 		fetchData()
 	}, [])
+
+	useEffect(() => {
+		if (sortedBy === 'newest') {
+			setFilteredStations([...sortedNewestStation])
+			return
+		}
+
+		if (sortedBy === 'alphabet') {
+			setFilteredStations([...sortedAlphabetStation])
+			return
+		}
+
+		setFilteredStations([...stations])
+	}, [stations, sortedBy])
 
 	if (loading) return <div>Loading...</div>
 	if (error) return <div>Error: {error}</div>
@@ -25,7 +48,7 @@ const StationsList: FC = () => {
 
 	return (
 		<ul className={s.list}>
-			{stations.map(station => (
+			{filteredStations.map(station => (
 				<li key={station.id}>
 					<StationCard
 						station={station}

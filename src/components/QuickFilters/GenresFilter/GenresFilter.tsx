@@ -1,9 +1,9 @@
 import { FC } from 'react'
-import { useDataStore } from '../../../store/store'
+import { useStore } from '../../../store/store'
 import s from './GenresFilter.module.scss'
 
 const GenresFilter: FC = () => {
-	const { tags, genre } = useDataStore()
+	const { tags, genre } = useStore()
 
 	return (
 		<div className={s.wrapper}>

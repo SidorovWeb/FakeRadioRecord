@@ -1,12 +1,14 @@
 import { FC } from 'react'
 import { IoMdCheckmark } from 'react-icons/io'
-import { SortOption } from '../QuickFilters'
+
+import { SortOptionState } from '../../../store/slices/sortSlice'
+import { useStore } from '../../../store/store'
 import s from './SortFilter.module.scss'
 
 type SortFilterProps = {
-	options: { id: SortOption; label: string }[]
-	selectedOption: SortOption
-	handleSelect: (value: SortOption) => void
+	options: { id: SortOptionState; label: string }[]
+	selectedOption: SortOptionState
+	handleSelect: (value: SortOptionState) => void
 }
 
 const SortFilter: FC<SortFilterProps> = ({
@@ -14,6 +16,13 @@ const SortFilter: FC<SortFilterProps> = ({
 	selectedOption,
 	handleSelect,
 }) => {
+	const { changesSorting } = useStore()
+
+	const clickHandler = (option: SortOptionState) => {
+		handleSelect(option)
+		changesSorting(option)
+	}
+
 	return (
 		<ul className={s.list}>
 			{options.map(option => (
@@ -21,7 +30,7 @@ const SortFilter: FC<SortFilterProps> = ({
 					<button
 						className={s.btn}
 						type='button'
-						onClick={() => handleSelect(option.id)}
+						onClick={() => clickHandler(option.id)}
 					>
 						<span>{option.label}</span>
 						{selectedOption === option.id && (

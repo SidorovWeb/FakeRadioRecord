@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, useRef, useState } from 'react'
 import { BiDotsVerticalRounded } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
 
@@ -15,33 +15,19 @@ type StationCardProps = {
 }
 
 const StationCard: FC<StationCardProps> = ({ station, isActive, onClick }) => {
-	const { id, title, svg_outline, svg_fill } = station
-	const [isVisible, setIsVisible] = useState<boolean>(false)
-	const [isOpenDropdown, setIsOpenDropdown] = useState<boolean>(false)
-	const parentRef = useRef<HTMLDivElement | null>(null)
 	const navigate = useNavigate()
-
-	useEffect(() => {
-		if (!isOpenDropdown) {
-			closesDropdown()
-		}
-	}, [isVisible])
+	const { id, title, svg_outline, svg_fill } = station
+	const parentRef = useRef<HTMLDivElement | null>(null)
+	const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+	const openDropdown = () => setIsDropdownOpen(true)
+	const closeDropdown = () => setIsDropdownOpen(false)
 
 	const handleDotsClick = () => {
-		if (isVisible) {
-			closesDropdown()
+		if (isDropdownOpen) {
+			closeDropdown()
 			return
 		}
-
-		setIsVisible(true)
-		setIsOpenDropdown(true)
-	}
-
-	const closesDropdown = () => {
-		setIsOpenDropdown(false)
-		setTimeout(() => {
-			setIsVisible(false)
-		}, 300)
+		openDropdown()
 	}
 
 	const handleGoToPost = (stationSlug: string) => {
@@ -72,21 +58,19 @@ const StationCard: FC<StationCardProps> = ({ station, isActive, onClick }) => {
 				size={24}
 				onClick={handleDotsClick}
 			/>
-			{isVisible && (
-				<Dropdown
-					isVisible={isVisible}
-					setIsVisible={setIsVisible}
-					isOpenDropdown={isOpenDropdown}
-					parentRef={parentRef}
-					isPosition={true}
-				>
-					<StationCardExtraOptions
-						station={station}
-						handleGoToPost={handleGoToPost}
-						setIsOpenDropdown={setIsOpenDropdown}
-					/>
-				</Dropdown>
-			)}
+
+			<Dropdown
+				isOpen={isDropdownOpen}
+				onClose={closeDropdown}
+				parentRef={parentRef}
+				alignRight={true}
+			>
+				<StationCardExtraOptions
+					station={station}
+					handleGoToPost={handleGoToPost}
+					onCloseDropDown={closeDropdown}
+				/>
+			</Dropdown>
 		</div>
 	)
 }

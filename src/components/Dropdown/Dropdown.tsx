@@ -3,27 +3,30 @@ import { FC, useEffect, useRef, useState } from 'react'
 import s from './Dropdown.module.scss'
 
 type DropdownProps = {
-	isVisible: boolean
-	isOpenDropdown: boolean
-	setIsVisible?: (value: boolean) => void
+	isOpen: boolean
+	setIsDropdownOpen?: (value: boolean) => void
+	onClose?: () => void
 	parentRef?: React.RefObject<HTMLDivElement | null>
 	children: React.ReactNode
-	isPosition?: boolean
+	alignRight?: boolean
+	animationDuration?: number
 }
 
 const Dropdown: FC<DropdownProps> = ({
-	isVisible,
-	isOpenDropdown,
-	setIsVisible,
+	isOpen = false,
+	setIsDropdownOpen,
+	onClose,
 	parentRef,
 	children,
-	isPosition,
+	alignRight = false,
+	animationDuration = 300,
 }) => {
+	const [isAnimating, setIsAnimating] = useState(false)
+	const [isVisible, setIsVisible] = useState(false)
 	const [isMouseEntered, setIsMouseEntered] = useState<boolean>(false)
-	const [isLeave, setIsLeave] = useState<boolean>(false)
 	const parentElement = parentRef?.current
-	const dropdown = useRef<HTMLDivElement>(null)
-	const [isRight, setIsRight] = useState(false)
+	const dropdownRef = useRef<HTMLDivElement>(null)
+	const [isAlignRight, setIsAlignRight] = useState(false)
 
 	useEffect(() => {
 		const checkPosition = () => {
@@ -34,8 +37,9 @@ const Dropdown: FC<DropdownProps> = ({
 				const distanceToRightEdge = windowWidth - elementRect.right
 				const halfScreenWidth = windowWidth / 2
 
-				setIsRight(
-					distanceToRightEdge + elementRectWidth < halfScreenWidth
+				setIsAlignRight(
+					alignRight &&
+						distanceToRightEdge + elementRectWidth < halfScreenWidth
 				)
 			}
 		}
@@ -47,77 +51,86 @@ const Dropdown: FC<DropdownProps> = ({
 	}, [])
 
 	useEffect(() => {
-		if (!isOpenDropdown) {
-			onLeave()
+		if (isOpen) {
+			setIsDropdownOpen && setIsDropdownOpen(true)
+			setIsVisible(true)
+			setIsAnimating(true)
+			dropdownRef.current?.classList.add(s.active)
+			dropdownRef.current?.classList.remove(s.noActive)
+		} else {
+			setIsAnimating(true)
+			dropdownRef.current?.classList.remove(s.active)
+			dropdownRef.current?.classList.add(s.noActive)
+
+			const timer = setTimeout(() => {
+				setIsDropdownOpen && setIsDropdownOpen(false)
+				setIsVisible(false)
+				setIsAnimating(false)
+			}, animationDuration)
+
+			return () => clearTimeout(timer)
 		}
-	}, [isOpenDropdown])
+	}, [isOpen, animationDuration])
+
+	useEffect(() => {
+		const clickHandler = (event: MouseEvent) => {
+			if (
+				isOpen &&
+				dropdownRef.current &&
+				!dropdownRef.current.contains(event.target as Node) &&
+				!parentRef?.current?.contains(event.target as Node)
+			) {
+				onClose?.()
+			}
+		}
+
+		document.addEventListener('click', clickHandler)
+
+		return () => {
+			document.removeEventListener('click', clickHandler)
+		}
+	}, [isOpen])
 
 	useEffect(() => {
 		if (!parentElement) return
 
-		const onParentMouseLeave = () => {
-			onLeave()
+		const handleMouseLeave = () => {
+			if (isOpen) {
+				onClose?.()
+			}
 		}
 
-		parentElement.addEventListener('mouseleave', onParentMouseLeave)
+		parentElement.addEventListener('mouseleave', handleMouseLeave)
 
 		return () => {
-			parentElement.removeEventListener('mouseleave', onParentMouseLeave)
+			parentElement.removeEventListener('mouseleave', handleMouseLeave)
 		}
-	}, [parentRef, setIsVisible])
-
-	useEffect(() => {
-		document.addEventListener('mousedown', clickHandler)
-
-		return () => {
-			document.removeEventListener('mousedown', clickHandler)
-		}
-	}, [isVisible])
-
-	const clickHandler = (event: MouseEvent) => {
-		if (
-			isVisible &&
-			dropdown.current &&
-			!dropdown.current.contains(event.target as Node)
-		) {
-			dropdown.current.classList.remove(`${s.active}`)
-			dropdown.current.classList.add(`${s.noActive}`)
-
-			onLeave()
-		}
-	}
+	}, [parentRef, isOpen, onClose])
 
 	const handleMouseEnter = () => {
 		setIsMouseEntered(true)
 	}
 
-	const onLeave = () => {
-		setIsLeave(true)
-
-		setTimeout(() => {
-			setIsMouseEntered(false)
-			if (setIsVisible) setIsVisible(false)
-		}, 300)
-	}
-
 	const handleMouseLeave = () => {
 		if (parentElement && isMouseEntered) {
-			onLeave()
+			onClose?.()
 		}
 	}
 
+	if (!isVisible && !isAnimating) return null
+
 	return (
 		<div
-			className={cn(
-				s.wrapper,
-				{ [s.isActive]: isVisible },
-				{ [s.noActive]: isLeave },
-				{ [s.left]: isPosition && !isRight },
-				{ [s.right]: isPosition && isRight }
-			)}
+			ref={dropdownRef}
+			className={cn(s.wrapper, s.active, {
+				[s.left]: alignRight && !isAlignRight,
+				[s.right]: alignRight && isAlignRight,
+			})}
+			style={{
+				transition: `opacity ${animationDuration}ms ease, transform ${animationDuration}ms ease`,
+			}}
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}
-			ref={dropdown}
 		>
 			{children}
 		</div>

@@ -8,13 +8,13 @@ import s from './StationCardExtraOptions.module.scss'
 type StationCardExtraOptionsProps = {
 	station: Station
 	handleGoToPost: (value: string) => void
-	setIsOpenDropdown: (value: boolean) => void
+	onCloseDropDown: () => void
 }
 
 const StationCardExtraOptions: FC<StationCardExtraOptionsProps> = ({
 	station,
 	handleGoToPost,
-	setIsOpenDropdown,
+	onCloseDropDown,
 }) => {
 	const { shareUrl, prefix } = station
 	const [isCopyLink, setIsCopyLink] = useState<boolean>(false)
@@ -24,7 +24,7 @@ const StationCardExtraOptions: FC<StationCardExtraOptionsProps> = ({
 			await navigator.clipboard.writeText(shareUrl)
 			setIsCopyLink(true)
 			setTimeout(() => {
-				setIsOpenDropdown(false)
+				onCloseDropDown()
 			}, 700)
 		} catch (err) {
 			console.error('Ошибка при копировании:', err)

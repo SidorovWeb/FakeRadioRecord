@@ -108,19 +108,3 @@ a {
   overflow-wrap: break-word;
   hyphens: auto;
 }
-
-.wrapper {
-  opacity: 0;
-  transform: translateY(-10px);
-  transition: opacity 300ms ease, transform 300ms ease;
-}
-
-.wrapper.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.wrapper.noActive {
-  opacity: 0;
-  transform: translateY(-10px);
-}
