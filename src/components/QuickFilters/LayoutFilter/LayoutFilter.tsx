@@ -1,10 +1,17 @@
 import cn from 'classnames'
 import { FC, useState } from 'react'
 import { LuLayoutGrid } from 'react-icons/lu'
+import { useStore } from '../../../store/store'
 import s from './LayoutFilter.module.scss'
 
 const LayoutFilter: FC = () => {
 	const [isGridLayout, setIsGridLayout] = useState<boolean>(true)
+	const { changesLayout } = useStore()
+
+	const clickHandler = (isGrid: boolean) => {
+		setIsGridLayout(isGrid)
+		changesLayout(isGrid)
+	}
 
 	return (
 		<ul className={s.layout}>
@@ -14,7 +21,7 @@ const LayoutFilter: FC = () => {
 						[s.activeLayout]: isGridLayout,
 					})}
 					type='button'
-					onClick={() => setIsGridLayout(true)}
+					onClick={() => clickHandler(true)}
 				>
 					<LuLayoutGrid size={24} />
 				</button>
@@ -25,7 +32,7 @@ const LayoutFilter: FC = () => {
 						[s.activeLayout]: !isGridLayout,
 					})}
 					type='button'
-					onClick={() => setIsGridLayout(false)}
+					onClick={() => clickHandler(false)}
 				>
 					<svg
 						xmlns='http://www.w3.org/2000/svg'

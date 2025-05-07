@@ -9,6 +9,8 @@ type DropdownProps = {
 	parentRef?: React.RefObject<HTMLDivElement | null>
 	children: React.ReactNode
 	alignRight?: boolean
+	right?: boolean
+	left?: boolean
 	animationDuration?: number
 }
 
@@ -19,6 +21,8 @@ const Dropdown: FC<DropdownProps> = ({
 	parentRef,
 	children,
 	alignRight = false,
+	right = false,
+	left = false,
 	animationDuration = 300,
 }) => {
 	const [isAnimating, setIsAnimating] = useState(false)
@@ -29,22 +33,6 @@ const Dropdown: FC<DropdownProps> = ({
 	const [isAlignRight, setIsAlignRight] = useState(false)
 
 	useEffect(() => {
-		const checkPosition = () => {
-			if (parentElement) {
-				const windowWidth = window.innerWidth
-				const elementRect = parentElement.getBoundingClientRect()
-				const elementRectWidth = elementRect.width
-				const distanceToRightEdge = windowWidth - elementRect.right
-				const halfScreenWidth = windowWidth / 2
-
-				setIsAlignRight(
-					alignRight &&
-						distanceToRightEdge + elementRectWidth < halfScreenWidth
-				)
-			}
-		}
-
-		checkPosition()
 		window.addEventListener('resize', checkPosition)
 
 		return () => window.removeEventListener('resize', checkPosition)
@@ -55,6 +43,7 @@ const Dropdown: FC<DropdownProps> = ({
 			setIsDropdownOpen && setIsDropdownOpen(true)
 			setIsVisible(true)
 			setIsAnimating(true)
+			checkPosition()
 			dropdownRef.current?.classList.add(s.active)
 			dropdownRef.current?.classList.remove(s.noActive)
 		} else {
@@ -71,6 +60,21 @@ const Dropdown: FC<DropdownProps> = ({
 			return () => clearTimeout(timer)
 		}
 	}, [isOpen, animationDuration])
+
+	const checkPosition = () => {
+		if (parentElement) {
+			const windowWidth = window.innerWidth
+			const elementRect = parentElement.getBoundingClientRect()
+			const elementRectWidth = elementRect.width
+			const distanceToRightEdge = windowWidth - elementRect.right
+			const halfScreenWidth = windowWidth / 2
+
+			setIsAlignRight(
+				alignRight &&
+					distanceToRightEdge + elementRectWidth < halfScreenWidth
+			)
+		}
+	}
 
 	useEffect(() => {
 		const clickHandler = (event: MouseEvent) => {
@@ -123,8 +127,10 @@ const Dropdown: FC<DropdownProps> = ({
 		<div
 			ref={dropdownRef}
 			className={cn(s.wrapper, s.active, {
-				[s.left]: alignRight && !isAlignRight,
-				[s.right]: alignRight && isAlignRight,
+				[s.alignLeft]: alignRight && !isAlignRight,
+				[s.alignRight]: alignRight && isAlignRight,
+				[s.right]: !alignRight && right,
+				[s.left]: !alignRight && left,
 			})}
 			style={{
 				transition: `opacity ${animationDuration}ms ease, transform ${animationDuration}ms ease`,

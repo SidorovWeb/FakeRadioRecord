@@ -1,3 +1,4 @@
+import cn from 'classnames'
 import { FC, useEffect, useState } from 'react'
 import { useStore } from '../../../store/store'
 import StationCard from '../StationCard/StationCard'
@@ -11,6 +12,7 @@ const StationsList: FC = () => {
 		sortedBy,
 		loading,
 		error,
+		isGrid,
 		fetchData,
 	} = useStore()
 	const emptyData = useStore(state => state.stations.length === 0)
@@ -47,7 +49,7 @@ const StationsList: FC = () => {
 	}
 
 	return (
-		<ul className={s.list}>
+		<ul className={cn(s.list, { [s.columns]: !isGrid })}>
 			{filteredStations.map(station => (
 				<li key={station.id}>
 					<StationCard

@@ -3,6 +3,7 @@ import { FC, useRef, useState } from 'react'
 import { BiDotsVerticalRounded } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
 
+import { useStore } from '../../../store/store'
 import { Station } from '../../../types/api'
 import Dropdown from '../../Dropdown/Dropdown'
 import s from './StationCard.module.scss'
@@ -21,6 +22,7 @@ const StationCard: FC<StationCardProps> = ({ station, isActive, onClick }) => {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 	const openDropdown = () => setIsDropdownOpen(true)
 	const closeDropdown = () => setIsDropdownOpen(false)
+	const { isGrid } = useStore()
 
 	const handleDotsClick = () => {
 		if (isDropdownOpen) {
@@ -36,7 +38,11 @@ const StationCard: FC<StationCardProps> = ({ station, isActive, onClick }) => {
 
 	return (
 		<div
-			className={cn(s.cardWrapper, { [s.isActive]: isActive })}
+			className={cn(
+				s.cardWrapper,
+				{ [s.isActive]: isActive },
+				{ [s.columns]: !isGrid }
+			)}
 			ref={parentRef}
 		>
 			<button
@@ -63,7 +69,8 @@ const StationCard: FC<StationCardProps> = ({ station, isActive, onClick }) => {
 				isOpen={isDropdownOpen}
 				onClose={closeDropdown}
 				parentRef={parentRef}
-				alignRight={true}
+				alignRight={isGrid && true}
+				right={!isGrid && true}
 			>
 				<StationCardExtraOptions
 					station={station}

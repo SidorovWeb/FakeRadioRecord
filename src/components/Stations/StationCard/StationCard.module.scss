@@ -11,7 +11,7 @@
       visibility: visible;
     }
 
-    & > .card:not(.isActive) {
+    & > .card {
       background: rgba(255, 255, 255, .1);
 
 
@@ -39,6 +39,56 @@
     & .cardDotsVertical {
       fill: var(--neutrals-025);
     }
+  }
+
+  &.isActive.columns {
+    .cardDotsVertical {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateX(0);
+      visibility: visible;
+    }
+  }
+
+  &.isActive.columns {
+    & .card {
+      &:hover {
+        background: var(--brand-accent);
+      }
+    }
+  }
+
+  &.columns {
+    & .card {
+      flex-direction: row;
+      height: auto;
+
+      & .cardIcon {
+        width: 48px;
+        height: 48px;
+        margin-right: .8rem;
+      }
+
+      &:hover {
+        background-color: var(--neutrals-800);
+      }
+    }
+
+    & .cardDotsVertical {
+      top: 2rem;
+      right: 1.4rem;
+      transform: translateX(2rem);
+      pointer-events: none;
+    }
+
+    &:hover {
+      & .cardDotsVertical {
+        transform: translateX(0);
+        pointer-events: all;
+      }
+
+    }
+
   }
 }
 
@@ -81,9 +131,9 @@
   top: 0.5rem;
   right: 0.5rem;
   visibility: hidden;
-  cursor: pointer;
   opacity: 0;
-  transition: opacity var(--transition);
+  cursor: pointer;
+  transition: opacity var(--transition), transform var(--transition);
   z-index: 2;
   fill: var(--neutrals-400);
 
