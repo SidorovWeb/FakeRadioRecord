@@ -71,3 +71,22 @@
     margin-left: 0.8rem;
   }
 }
+
+.filterActive {
+  background: var(--brand-accent);
+
+  &:hover {
+    background: var(--brand-accent);
+  }
+
+  & svg {
+
+    fill: var(--text-night-primary);
+    opacity: .6;
+
+    &:hover {
+      fill: var(--system-pure-white);
+      opacity: 1 !important;
+    }
+  }
+}

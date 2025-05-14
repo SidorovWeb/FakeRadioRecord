@@ -1,9 +1,23 @@
 import { FC } from 'react'
+import { SortOptionGenresState } from '../../../store/slices/genresFilterSlice'
 import { useStore } from '../../../store/store'
 import s from './GenresFilter.module.scss'
 
-const GenresFilter: FC = () => {
-	const { tags, genre } = useStore()
+type GenresFilterProps = {
+	handleSelectGenres: (option: SortOptionGenresState) => void
+}
+
+const GenresFilter: FC<GenresFilterProps> = ({ handleSelectGenres }) => {
+	const { tags, genres, changesSortingByGenre } = useStore()
+
+	// useEffect(() => {
+	// 	console.log(genres)
+	// }, [])
+
+	const clickHandler = (option: SortOptionGenresState) => {
+		handleSelectGenres(option)
+		changesSortingByGenre(option)
+	}
 
 	return (
 		<div className={s.wrapper}>
@@ -11,13 +25,26 @@ const GenresFilter: FC = () => {
 				<span className={s.title}>По стилям</span>
 				<div>
 					<ul className={s.list}>
-						{genre.map(g => (
-							<li className={s.item} key={g.id}>
+						{genres.map(genre => (
+							<li className={s.item} key={genre.id}>
 								<button
 									className={`${s.btn} ${s.btnStyles}`}
 									type='button'
+									onClick={() =>
+										clickHandler({
+											id: genre.name,
+											name:
+												genre.name
+													.charAt(0)
+													.toUpperCase() +
+												genre.name
+													.slice(1)
+													.toLowerCase(),
+											style: 'genre',
+										})
+									}
 								>
-									{g.name}
+									{genre.name}
 								</button>
 							</li>
 						))}
@@ -28,18 +55,29 @@ const GenresFilter: FC = () => {
 				<span className={s.title}>По темам</span>
 				<div>
 					<ul className={s.list}>
-						{tags.map(t => (
-							<li className={s.item} key={t.id}>
+						{tags.map(tag => (
+							<li className={s.item} key={tag.id}>
 								<button
 									className={`${s.btn} ${s.btnTopic}`}
 									type='button'
+									onClick={() =>
+										clickHandler({
+											id: tag.name,
+											name:
+												tag.name
+													.charAt(0)
+													.toUpperCase() +
+												tag.name.slice(1).toLowerCase(),
+											style: 'tags',
+										})
+									}
 								>
 									<div
 										dangerouslySetInnerHTML={{
-											__html: t.svg,
+											__html: tag.svg,
 										}}
 									/>
-									<span>{t.name}</span>
+									<span>{tag.name}</span>
 								</button>
 							</li>
 						))}

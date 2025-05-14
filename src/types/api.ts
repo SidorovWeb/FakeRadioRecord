@@ -49,14 +49,14 @@ export interface Station {
 	stream_128: string
 	stream_320: string
 	stream_hls: string
-	genre: Genre2[]
+	genre: stationGenre[]
 	detail_page_url: string
 	shareUrl: string
 	mark?: string
 	updated: string
 }
 
-export interface Genre2 {
+export interface stationGenre {
 	id: number
 	name: string
 	detail_picture?: string

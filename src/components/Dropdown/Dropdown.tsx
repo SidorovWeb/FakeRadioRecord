@@ -25,8 +25,8 @@ const Dropdown: FC<DropdownProps> = ({
 	left = false,
 	animationDuration = 300,
 }) => {
-	const [isAnimating, setIsAnimating] = useState(false)
-	const [isVisible, setIsVisible] = useState(false)
+	// const [isAnimating, setIsAnimating] = useState(false)
+	const [isVisible, setIsVisible] = useState(isOpen)
 	const [isMouseEntered, setIsMouseEntered] = useState<boolean>(false)
 	const parentElement = parentRef?.current
 	const dropdownRef = useRef<HTMLDivElement>(null)
@@ -35,31 +35,29 @@ const Dropdown: FC<DropdownProps> = ({
 	useEffect(() => {
 		window.addEventListener('resize', checkPosition)
 
+		if (isOpen) checkPosition()
+
 		return () => window.removeEventListener('resize', checkPosition)
-	}, [])
+	}, [isOpen, parentElement, alignRight])
 
 	useEffect(() => {
 		if (isOpen) {
-			setIsDropdownOpen && setIsDropdownOpen(true)
 			setIsVisible(true)
-			setIsAnimating(true)
 			checkPosition()
 			dropdownRef.current?.classList.add(s.active)
 			dropdownRef.current?.classList.remove(s.noActive)
 		} else {
-			setIsAnimating(true)
 			dropdownRef.current?.classList.remove(s.active)
 			dropdownRef.current?.classList.add(s.noActive)
 
 			const timer = setTimeout(() => {
-				setIsDropdownOpen && setIsDropdownOpen(false)
+				setIsDropdownOpen?.(false)
 				setIsVisible(false)
-				setIsAnimating(false)
 			}, animationDuration)
 
 			return () => clearTimeout(timer)
 		}
-	}, [isOpen, animationDuration])
+	}, [isOpen, animationDuration, setIsDropdownOpen])
 
 	const checkPosition = () => {
 		if (parentElement) {
@@ -112,6 +110,7 @@ const Dropdown: FC<DropdownProps> = ({
 	}, [parentRef, isOpen, onClose])
 
 	const handleMouseEnter = () => {
+		setIsDropdownOpen?.(true)
 		setIsMouseEntered(true)
 	}
 
@@ -121,7 +120,7 @@ const Dropdown: FC<DropdownProps> = ({
 		}
 	}
 
-	if (!isVisible && !isAnimating) return null
+	if (!isVisible) return null
 
 	return (
 		<div

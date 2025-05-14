@@ -1,24 +1,24 @@
 import { FC } from 'react'
 import { IoMdCheckmark } from 'react-icons/io'
 
-import { SortOptionState } from '../../../store/slices/sortSlice'
+import { SortedBy } from '../../../store/slices/sortSlice'
 import { useStore } from '../../../store/store'
 import s from './SortFilter.module.scss'
 
 type SortFilterProps = {
-	options: { id: SortOptionState; label: string }[]
-	selectedOption: SortOptionState
-	handleSelect: (value: SortOptionState) => void
+	sortedBy: SortedBy
+	handleSelect: (option: SortedBy) => void
 }
 
-const SortFilter: FC<SortFilterProps> = ({
-	options,
-	selectedOption,
-	handleSelect,
-}) => {
+const SortFilter: FC<SortFilterProps> = ({ sortedBy, handleSelect }) => {
+	const options: SortedBy[] = [
+		{ id: 'popular', name: 'По популярности' },
+		{ id: 'alphabet', name: 'По алфавиту' },
+		{ id: 'newest', name: 'По новизне' },
+	]
 	const { changesSorting } = useStore()
 
-	const clickHandler = (option: SortOptionState) => {
+	const clickHandler = (option: SortedBy) => {
 		handleSelect(option)
 		changesSorting(option)
 	}
@@ -30,10 +30,10 @@ const SortFilter: FC<SortFilterProps> = ({
 					<button
 						className={s.btn}
 						type='button'
-						onClick={() => clickHandler(option.id)}
+						onClick={() => clickHandler(option)}
 					>
-						<span>{option.label}</span>
-						{selectedOption === option.id && (
+						<span>{option.name}</span>
+						{sortedBy.id === option.id && (
 							<IoMdCheckmark size={24} />
 						)}
 					</button>

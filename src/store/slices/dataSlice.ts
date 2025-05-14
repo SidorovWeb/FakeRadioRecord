@@ -5,7 +5,7 @@ import { RadioStations, Station } from '../../types/api'
 export const createDataSlice: StateCreator<DataStore> = set => ({
 	stations: [],
 	tags: [],
-	genre: [],
+	genres: [],
 	sortedNewestStation: [],
 	sortedAlphabetStation: [],
 	loading: false,
@@ -29,7 +29,7 @@ export const createDataSlice: StateCreator<DataStore> = set => ({
 			const data: RadioStations = await res.json()
 			const stations = data.result.stations
 			const tags = data.result.tags
-			const genre = data.result.genre
+			const genres = data.result.genre
 			const sortedNewestStation = [...stations].sort(
 				(a, b) => b.id - a.id
 			)
@@ -63,7 +63,7 @@ export const createDataSlice: StateCreator<DataStore> = set => ({
 			set({
 				stations,
 				tags,
-				genre,
+				genres,
 				sortedNewestStation,
 				sortedAlphabetStation: [
 					...numbers,
@@ -75,5 +75,9 @@ export const createDataSlice: StateCreator<DataStore> = set => ({
 		} catch (error) {
 			set({ error: 'Failed to fetch data', loading: false })
 		}
+	},
+
+	changesStationsData: stations => {
+		set({ stations })
 	},
 })
