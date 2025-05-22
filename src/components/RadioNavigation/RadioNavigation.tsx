@@ -23,11 +23,10 @@ const RadioNavigation: FC<Navigation> = ({ size = 3.6, gap = 4 }) => {
 	return (
 		<nav className={s.nav}>
 			<ul className={s.navList} style={{ gap: `${gap}rem` }}>
-				{nav.map((title, key) => (
-					<li>
+				{nav.map((title, id) => (
+					<li key={id}>
 						<NavLink
 							to={title.to}
-							key={key}
 							className={({ isActive }) =>
 								cn(s.navListLink, { [s.activeLink]: isActive })
 							}

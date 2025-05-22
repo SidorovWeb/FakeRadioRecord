@@ -1,5 +1,11 @@
+@use "swiper/css/pagination";
+@use "swiper/css/navigation";
+@use "swiper/css";
+
+
 :root {
   --system-pure-white: #ffffff;
+  --system-pure-black: #000000;
   --text-light-primary: #2A2A2A;
   --text-light-secondary: #5B5B5B;
   --text-light-trietary: #7A7A7A;

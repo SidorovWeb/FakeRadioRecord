@@ -64,3 +64,21 @@ export interface stationGenre {
 	svg?: string
 	pdf?: string
 }
+
+export interface Banners {
+	result: BannersResult[]
+}
+
+export interface BannersResult {
+	link: string
+	image: string
+	text: string
+	html: string
+	showHtml: boolean
+	button: BannersButton
+}
+
+export interface BannersButton {
+	text?: string
+	link?: string
+}

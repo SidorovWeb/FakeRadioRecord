@@ -1,13 +1,13 @@
 import { StateCreator } from 'zustand'
 import { DataStore } from '../../types/ store'
-import { RadioStations, Station } from '../../types/api'
+import { RadioStations } from '../../types/api'
 
 export const createDataSlice: StateCreator<DataStore> = set => ({
 	stations: [],
 	tags: [],
 	genres: [],
-	sortedNewestStation: [],
-	sortedAlphabetStation: [],
+	// sortedNewestStation: [],
+	// sortedAlphabetStation: [],
 	loading: false,
 	error: null,
 
@@ -30,46 +30,46 @@ export const createDataSlice: StateCreator<DataStore> = set => ({
 			const stations = data.result.stations
 			const tags = data.result.tags
 			const genres = data.result.genre
-			const sortedNewestStation = [...stations].sort(
-				(a, b) => b.id - a.id
-			)
+			// const sortedNewestStation = [...stations].sort(
+			// 	(a, b) => b.id - a.id
+			// )
 
-			const latinWords: Station[] = []
-			const cyrillicWords: Station[] = []
-			const numbers: Station[] = []
+			// const latinWords: Station[] = []
+			// const cyrillicWords: Station[] = []
+			// const numbers: Station[] = []
 
-			stations.forEach(s => {
-				if (/^\d/.test(s.title[0])) {
-					numbers.push(s) // Поиск цифр
-				} else if (/^[a-zA-Z]+$/.test(s.title[0])) {
-					latinWords.push(s) // Поиск латинского алфавита
-				} else {
-					cyrillicWords.push(s) // кириллица и остальное
-				}
+			// stations.forEach(s => {
+			// 	if (/^\d/.test(s.title[0])) {
+			// 		numbers.push(s) // Поиск цифр
+			// 	} else if (/^[a-zA-Z]+$/.test(s.title[0])) {
+			// 		latinWords.push(s) // Поиск латинского алфавита
+			// 	} else {
+			// 		cyrillicWords.push(s) // кириллица и остальное
+			// 	}
 
-				numbers.sort((a, b) =>
-					a.title.toLowerCase().localeCompare(b.title.toLowerCase())
-				)
+			// 	numbers.sort((a, b) =>
+			// 		a.title.toLowerCase().localeCompare(b.title.toLowerCase())
+			// 	)
 
-				latinWords.sort((a, b) =>
-					a.title.toLowerCase().localeCompare(b.title.toLowerCase())
-				)
+			// 	latinWords.sort((a, b) =>
+			// 		a.title.toLowerCase().localeCompare(b.title.toLowerCase())
+			// 	)
 
-				cyrillicWords.sort((a, b) =>
-					a.title.toLowerCase().localeCompare(b.title.toLowerCase())
-				)
-			})
+			// 	cyrillicWords.sort((a, b) =>
+			// 		a.title.toLowerCase().localeCompare(b.title.toLowerCase())
+			// 	)
+			// })
 
 			set({
 				stations,
 				tags,
 				genres,
-				sortedNewestStation,
-				sortedAlphabetStation: [
-					...numbers,
-					...latinWords,
-					...cyrillicWords,
-				],
+				// sortedNewestStation,
+				// sortedAlphabetStation: [
+				// 	...numbers,
+				// 	...latinWords,
+				// 	...cyrillicWords,
+				// ],
 				loading: false,
 			})
 		} catch (error) {

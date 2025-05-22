@@ -1,11 +1,13 @@
 import { FC } from 'react'
+import Banners from '../components/Banners/Banners'
 import QuickFilters from '../components/QuickFilters/QuickFilters'
 import RadioNavigation from '../components/RadioNavigation/RadioNavigation'
 import StationsList from '../components/Stations/StationsList/StationsList'
 
 const Home: FC = () => {
 	return (
-		<div style={{ marginTop: `203px` }}>
+		<div>
+			<Banners />
 			<RadioNavigation size={4} />
 			<QuickFilters />
 			<StationsList />
