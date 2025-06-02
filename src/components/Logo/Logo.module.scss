@@ -2,4 +2,9 @@
   display: flex;
   flex-basis: 11.2rem;
   height: 4rem;
+  transition: all 0.3s ease;
+}
+
+.sticky {
+  height: 3.2rem;
 }

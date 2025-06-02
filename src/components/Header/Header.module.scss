@@ -1,9 +1,18 @@
 .header {
   background-color: var(--dark-primary);
-  position: static;
-  left: 0;
-  right: 0;
-  z-index: 450;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid transparent;
+  /* Плавный переход для изменений */
+}
+
+.container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-1);
 }
 
 .wrapper {
@@ -12,6 +21,7 @@
   justify-content: space-between;
   gap: 2.4rem;
   padding: var(--spacing-3) 0;
+  transition: all 0.3s ease;
 }
 
 .leftSide,
@@ -19,4 +29,12 @@
   display: flex;
   place-items: center;
   gap: 2.4rem;
+}
+
+.sticky {
+  border-bottom: 1px solid #242424;
+
+  & .wrapper {
+    padding: var(--spacing-5) 0;
+  }
 }

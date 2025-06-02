@@ -1,0 +1,88 @@
+.footer {
+  border-top: 1px solid #242424;
+  color: var(--text-night-trietary);
+  font-size: 16px;
+  padding: 4rem 0;
+  margin-bottom: 7.2rem;
+}
+
+.container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-1);
+}
+
+.wrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.leftSide {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  gap: 4rem;
+}
+
+.list {
+  & > *:not(:last-child) {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.link {
+  color: var(--text-night-trietary);
+  transition: color var(--transition);
+
+  &:hover {
+    color: var(--brand-accent);
+  }
+}
+
+.upgradePremium {
+  display: flex;
+  place-items: center;
+  gap: var(--spacing-6);
+}
+
+
+
+.socialNetwork {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 2.4rem;
+  padding: 0 1.2rem;
+  margin-bottom: 24px;
+}
+
+.socialNetworkLink {
+  display: block;
+  transition: var(--transition);
+
+  &:hover {
+    color: var(--brand-accent);
+  }
+
+}
+
+.shops {
+  margin-bottom: 2.4rem;
+}
+
+.shopsList {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: .8rem;
+}
+
+.copyright {
+  text-align: right;
+  cursor: text;
+}
