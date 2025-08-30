@@ -1,12 +1,8 @@
 .list {
+  padding-top: 3.2rem;
   display: grid;
-  grid-template-columns: 13.3rem;
-  grid-template-columns: repeat(auto-fit, minmax(13.3rem, 1fr));
-  gap: 1.6rem;
-}
-
-.columns {
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(18.3rem, 1fr));
+  gap: 2.2rem;
 }
 
 

@@ -1,31 +1,22 @@
 import { StateCreator } from 'zustand'
+import { fetchWithProxyRetry } from '../../services/fetchWithProxyRetry'
 import { DataBanners } from '../../types/ store'
 import { Banners } from '../../types/api'
 
 export const createDataBannersSlice: StateCreator<DataBanners> = set => ({
 	banners: [],
-	loading: false,
-	error: null,
+	bannersLoading: false,
+	bannersError: null,
 
 	fetchDataBanners: async () => {
-		set({ loading: true, error: null })
+		set({ bannersLoading: true, bannersError: null })
 
 		try {
-			const res = await fetch(
-				'https://thingproxy.freeboard.io/fetch/https://www.radiorecord.ru/api/banners',
-				{
-					headers: {
-						Accept: 'application/json',
-					},
-				}
-			)
+			const data: Banners = await fetchWithProxyRetry('banners')
 
-			if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`)
-			const data: Banners = await res.json()
-
-			set({ banners: data.result, loading: false })
+			set({ banners: data.result, bannersLoading: false })
 		} catch (error) {
-			set({ error: 'Failed to fetch data banners', loading: false })
+			set({ bannersError: 'Failed to fetch banners data', bannersLoading: false })
 		}
 	},
 })

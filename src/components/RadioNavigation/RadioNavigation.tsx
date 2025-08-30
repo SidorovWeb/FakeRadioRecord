@@ -3,12 +3,12 @@ import { FC } from 'react'
 import { NavLink } from 'react-router-dom'
 import s from './RadioNavigation.module.scss'
 
-type Navigation = {
+interface Navigation {
 	size?: number
 	gap?: number
 }
 
-type NavKey = {
+interface NavKey {
 	title: string
 	to: string
 }

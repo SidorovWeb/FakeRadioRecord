@@ -1,6 +1,7 @@
 import { create } from 'zustand'
-import { DataBanners, DataStore } from '../types/ store'
+import { DataBanners, DataPodcasts, DataStore } from '../types/ store'
 import { createDataBannersSlice } from './slices/dataBannersSlice'
+import { createDataPodcastsSlice } from './slices/dataPodcastsSlice'
 import { createDataSlice } from './slices/dataSlice'
 import {
 	createGenresFilterSlice,
@@ -13,7 +14,8 @@ export type StoreState = DataStore &
 	SortData &
 	LayoutData &
 	SortedByGenres &
-	DataBanners
+	DataBanners &
+	DataPodcasts
 
 export const useStore = create<StoreState>()((...arg) => ({
 	...createDataSlice(...arg),
@@ -21,4 +23,5 @@ export const useStore = create<StoreState>()((...arg) => ({
 	...createLayoutSlice(...arg),
 	...createGenresFilterSlice(...arg),
 	...createDataBannersSlice(...arg),
+	...createDataPodcastsSlice(...arg),
 }))

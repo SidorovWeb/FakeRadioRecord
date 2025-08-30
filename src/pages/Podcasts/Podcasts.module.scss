@@ -1,0 +1,14 @@
+.podcastFilters {
+  margin-bottom: 2.6rem;
+}
+
+.podcastList {
+  display: flex;
+  place-items: center;
+  gap: .8rem;
+  flex-wrap: wrap;
+
+  & li {
+    position: relative;
+  }
+}

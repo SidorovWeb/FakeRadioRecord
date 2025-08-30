@@ -4,7 +4,7 @@ import Event from '../pages/Event'
 import Home from '../pages/Home'
 import Login from '../pages/Login'
 import NotFoundPage from '../pages/NotFoundPage'
-import Podcast from '../pages/Podcast'
+import Podcasts from '../pages/Podcasts/Podcasts'
 import StationDetails from '../pages/StationDetails'
 import Stations from '../pages/Stations'
 
@@ -14,7 +14,7 @@ const AppRouter: FC = () => {
 			{/* Публичные маршруты */}
 			<Route path='/' element={<Home />} />
 			<Route path='/login' element={<Login />} />
-			<Route path='/podcast' element={<Podcast />} />
+			<Route path='/podcast' element={<Podcasts />} />
 			<Route path='/event' element={<Event />} />
 			<Route path='/stations' element={<Stations />} />
 			<Route path='/station/:stationSlug' element={<StationDetails />} />

@@ -10,10 +10,6 @@ type GenresFilterProps = {
 const GenresFilter: FC<GenresFilterProps> = ({ handleSelectGenres }) => {
 	const { tags, genres, changesSortingByGenre } = useStore()
 
-	// useEffect(() => {
-	// 	console.log(genres)
-	// }, [])
-
 	const clickHandler = (option: SortOptionGenresState) => {
 		handleSelectGenres(option)
 		changesSortingByGenre(option)

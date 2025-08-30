@@ -9,7 +9,7 @@ import Dropdown from '../../Dropdown/Dropdown'
 import s from './StationCard.module.scss'
 import StationCardExtraOptions from './StationCardExtraOptions/StationCardExtraOptions'
 
-type StationCardProps = {
+interface StationCardProps {
 	station: Station
 	isActive: boolean
 	onClick: (id: number) => void

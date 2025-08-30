@@ -8,12 +8,18 @@ import { useStore } from '../../store/store'
 import s from './Banners.module.scss'
 
 const Banners: FC = () => {
-	const { fetchDataBanners, banners } = useStore()
+	const { fetchDataBanners, banners, bannersLoading, bannersError } = useStore()
 	const swiperRef = React.useRef<SwiperType>(null)
 
 	useEffect(() => {
-		fetchDataBanners()
+		if (!banners.length) {
+			fetchDataBanners()
+		}
 	}, [])
+
+	if (bannersLoading) return <div className={s.loading}>Loading podcasts...</div>
+	if (bannersError) return <div className={s.error}>Error: {bannersError}</div>
+
 
 	return (
 		<div className={s.sliderWrapper}>

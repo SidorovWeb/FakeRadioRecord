@@ -23,10 +23,16 @@
 }
 
 .activeLink {
+  position: relative;
   color: var(--system-pure-white);
-  text-decoration: underline;
-  text-underline-offset: var(--spacing-6);
-  text-decoration-color: var(--brand-accent);
-  text-decoration-thickness: 0.2rem;
   cursor: text;
+
+  &::before {
+    position: absolute;
+    content: '';
+    height: .2rem;
+    width: 100%;
+    background-color: var(--brand-accent);
+    bottom: -.5rem;
+  }
 }

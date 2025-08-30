@@ -82,3 +82,29 @@ export interface BannersButton {
 	text?: string
 	link?: string
 }
+
+export interface Podcasts {
+	result: PodcastsResult[]
+}
+
+export interface PodcastsResult {
+	id: number
+	sort: number
+	name: string
+	cover_horizontal: string
+	cover_vertical: string
+	cover_horizontal_thumb: string
+	cover_itunes: string
+	rss: RSS
+	talk_show: number
+	rss_prefix: string
+	apple_categories: string
+	is_new: number
+	description: string
+	cover_bg: string
+	shareUrl: string
+}
+
+export enum RSS {
+	Да = 'Да',
+}

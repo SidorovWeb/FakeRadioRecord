@@ -71,7 +71,7 @@
   transition: font-weight .5s;
 
   &:hover {
-    font-weight: var(--fontWeight-2);
+    color: var(--system-pure-white);
   }
 }
 
@@ -104,4 +104,26 @@
 
 .sliderBtnNext {
   right: -1rem;
+}
+
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  font-size: 1.8rem;
+  color: var(--text-night-primary);
+  border-radius: var(--border-radius-2);
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  font-size: 1.6rem;
+  color: var(--system-error);
+  border: 1px solid var(--system-error);
+  border-radius: var(--border-radius-2);
 }

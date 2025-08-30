@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { Link } from 'react-router-dom'
 import s from './Logo.module.scss'
 
-type LogoProps = {
+interface LogoProps  {
 	sticky?: boolean
 }
 

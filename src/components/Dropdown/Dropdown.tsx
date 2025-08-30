@@ -2,7 +2,7 @@ import cn from 'classnames'
 import { FC, useEffect, useRef, useState } from 'react'
 import s from './Dropdown.module.scss'
 
-type DropdownProps = {
+interface DropdownProps {
 	isOpen: boolean
 	setIsDropdownOpen?: (value: boolean) => void
 	onClose?: () => void
