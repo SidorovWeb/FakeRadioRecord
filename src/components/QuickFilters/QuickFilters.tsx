@@ -17,14 +17,13 @@ const QuickFilters: FC = () => {
 		id: 'popular',
 		name: 'По популярности',
 	})
+	const { handleSubscribe } = useStore()
 
-	const [sortedByGenres, setSortedByGenres] = useState<SortOptionGenresState>(
-		{
-			id: '',
-			name: '',
-			style: null,
-		}
-	)
+	const [sortedByGenres, setSortedByGenres] = useState<SortOptionGenresState>({
+		id: '',
+		name: '',
+		style: null,
+	})
 
 	const [activeDropdown, setActiveDropdown] = useState<
 		'popularity' | 'genres' | null
@@ -58,7 +57,11 @@ const QuickFilters: FC = () => {
 		<div className={s.wrapper}>
 			<ul className={s.list}>
 				<li>
-					<button className={`${s.btn} ${s.favorites}`} type='button'>
+					<button
+						className={`${s.btn} ${s.favorites}`}
+						type="button"
+						onClick={handleSubscribe}
+					>
 						<FaRegHeart size={20} />
 						<span>Избранные</span>
 					</button>
@@ -68,16 +71,13 @@ const QuickFilters: FC = () => {
 						className={cn(s.genres, s.btn, {
 							[s.filterActive]: sortedByGenres.name,
 						})}
-						type='button'
+						type="button"
 						onClick={() => openDropdown('genres')}
 					>
 						<span>{sortedByGenres.name || 'Жанры'}</span>
 						{!sortedByGenres.name && <IoIosArrowDown size={18} />}
 						{sortedByGenres.name && (
-							<IoIosCloseCircle
-								size={24}
-								onClick={resetFilters}
-							/>
+							<IoIosCloseCircle size={24} onClick={resetFilters} />
 						)}
 					</button>
 
@@ -91,7 +91,7 @@ const QuickFilters: FC = () => {
 				<li>
 					<button
 						className={`${s.popularity} ${s.btn}`}
-						type='button'
+						type="button"
 						onClick={() => openDropdown('popularity')}
 					>
 						<span>{sortedBy.name}</span>
@@ -102,10 +102,7 @@ const QuickFilters: FC = () => {
 						isOpen={activeDropdown === 'popularity'}
 						onClose={closeDropdown}
 					>
-						<SortFilter
-							sortedBy={sortedBy}
-							handleSelect={handleSelect}
-						/>
+						<SortFilter sortedBy={sortedBy} handleSelect={handleSelect} />
 					</Dropdown>
 				</li>
 			</ul>

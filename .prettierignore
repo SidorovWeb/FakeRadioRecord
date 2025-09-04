@@ -1,0 +1,12 @@
+# Игнорировать эти файлы и папки
+node_modules/
+dist/
+build/
+*.min.js
+*.min.css
+package-lock.json
+yarn.lock
+.next/
+.nuxt/
+.vscode/
+.git/

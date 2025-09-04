@@ -14,97 +14,93 @@ const Footer: FC = () => {
 					<div className={s.leftSide}>
 						<ul className={s.list}>
 							<li>
-								<a href='#' className={s.link}>
+								<a href="#" className={s.link}>
 									Главная
 								</a>
 							</li>
 							<li>
-								<a href='#' className={s.link}>
+								<a href="#" className={s.link}>
 									Каналы
 								</a>
 							</li>
 							<li>
-								<a href='#' className={s.link}>
+								<a href="#" className={s.link}>
 									Подкасты
 								</a>
 							</li>
 							<li>
-								<a href='#' className={s.link}>
+								<a href="#" className={s.link}>
 									События
 								</a>
 							</li>
 							<li>
-								<a
-									href='#'
-									className={cn(s.link, s.upgradePremium)}
-								>
-									<RiVipCrownLine size={16} />{' '}
-									<span>Премиум</span>
+								<a href="#" className={cn(s.link, s.upgradePremium)}>
+									<RiVipCrownLine size={16} /> <span>Премиум</span>
 								</a>
 							</li>
 						</ul>
 						<ul className={s.list}>
 							<li>
-								<a href='#' className={s.link}>
+								<a href="#" className={s.link}>
 									Superchart
 								</a>
 							</li>
 							<li>
-								<a href='#' className={s.link}>
+								<a href="#" className={s.link}>
 									Club chart
 								</a>
 							</li>
 							<li>
-								<a href='#' className={s.link}>
+								<a href="#" className={s.link}>
 									Новинки эфира
 								</a>
 							</li>
 							<li>
-								<a href='#' className={s.link}>
+								<a href="#" className={s.link}>
 									Новости
 								</a>
 							</li>
 							<li>
-								<a href='#' className={s.link}>
+								<a href="#" className={s.link}>
 									Города вещания
 								</a>
 							</li>
 						</ul>
 						<ul className={s.list}>
 							<li>
-								<a href='#' className={s.link}>
+								<a href="#" className={s.link}>
 									Расписание
 								</a>
 							</li>
 							<li>
-								<a href='#' className={s.link}>
+								<a href="#" className={s.link}>
 									Рекламодателям
 								</a>
 							</li>
 							<li>
-								<a href='#' className={s.link}>
+								<a href="#" className={s.link}>
 									Про Record
 								</a>
 							</li>
 							<li>
-								<a href='#' className={s.link}>
+								<a href="#" className={s.link}>
 									Контакты
 								</a>
 							</li>
 						</ul>
 						<ul className={s.list}>
 							<li>
-								<a href='#' className={s.link}>
+								<a href="#" className={s.link}>
 									Связь с разработчиками{' '}
 								</a>
 							</li>
 							<li>
-								<a href='#' className={s.link}>
+								<a href="#" className={s.link}>
 									Лицензионное соглашение{' '}
 								</a>
 							</li>
 							<li>
-								<a href='#' className={s.link}>
+								<a href="#" className={s.link}>
 									Политика конфиденциальности{' '}
 								</a>
 							</li>
@@ -114,17 +110,17 @@ const Footer: FC = () => {
 						<div className={s.socials}>
 							<ul className={s.socialNetwork}>
 								<li>
-									<a href='' className={s.socialNetworkLink}>
+									<a href="" className={s.socialNetworkLink}>
 										<IoLogoVk size={32} />
 									</a>
 								</li>
 								<li>
-									<a href='' className={s.socialNetworkLink}>
+									<a href="" className={s.socialNetworkLink}>
 										<IoLogoYoutube size={24} />
 									</a>
 								</li>
 								<li>
-									<a href='' className={s.socialNetworkLink}>
+									<a href="" className={s.socialNetworkLink}>
 										<FaTelegramPlane size={28} />
 									</a>
 								</li>
@@ -133,27 +129,18 @@ const Footer: FC = () => {
 						<div className={s.shops}>
 							<ul className={s.shopsList}>
 								<li>
-									<a href='#'>
-										<img
-											src='../../../public/icons/GooglePlay.svg'
-											alt='Google Play Icon'
-										/>
+									<a href="#">
+										<img src="/icons/GooglePlay.svg" alt="Google Play Icon" />
 									</a>
 								</li>
 								<li>
-									<a href='#'>
-										<img
-											src='../../../public/icons/AppleStore.svg'
-											alt='Google Play Icon'
-										/>
+									<a href="#">
+										<img src="/icons/AppleStore.svg" alt="Google Play Icon" />
 									</a>
 								</li>
 								<li>
-									<a href='#'>
-										<img
-											src='../../../public/icons/AppGallery.svg'
-											alt='Google Play Icon'
-										/>
+									<a href="#">
+										<img src="/icons/AppGallery.svg" alt="Google Play Icon" />
 									</a>
 								</li>
 							</ul>

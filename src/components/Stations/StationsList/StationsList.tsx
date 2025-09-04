@@ -4,6 +4,7 @@ import { useStore } from '../../../store/store'
 import { Station } from '../../../types/api'
 import StationCard from '../StationCard/StationCard'
 import s from './StationsList.module.scss'
+import { AnimatePresence } from 'framer-motion'
 
 const StationsList: FC = () => {
 	const {
@@ -18,6 +19,29 @@ const StationsList: FC = () => {
 	const emptyData = useStore(state => state.stations.length === 0)
 	const [activeId, setActiveId] = useState<number | null>(null)
 
+	const [isTransitioning, setIsTransitioning] = useState(false)
+	const listVariants = {
+		hidden: { opacity: 0 },
+		visible: {
+			opacity: 1,
+			transition: {
+				staggerChildren: 0.1,
+			},
+		},
+	}
+
+	const itemVariants = {
+		hidden: {
+			scale: 0.8,
+			opacity: 0,
+		},
+		visible: {
+			scale: 1,
+			opacity: 1,
+			transition: { duration: 0.3 },
+		},
+	}
+
 	useEffect(() => {
 		if (!emptyData) {
 			return
@@ -27,15 +51,17 @@ const StationsList: FC = () => {
 		}
 	}, [fetchData, emptyData])
 
-
-	const filterByGenres = useCallback((stations: Station[]): Station[] => {
-		if (sortedByGenres.style && sortedByGenres.id) {
-			return stations.filter(station =>
-				station.genre.some(s => s.name === sortedByGenres.id)
-			)
-		}
-		return stations
-	}, [sortedByGenres.style, sortedByGenres.id])
+	const filterByGenres = useCallback(
+		(stations: Station[]): Station[] => {
+			if (sortedByGenres.style && sortedByGenres.id) {
+				return stations.filter(station =>
+					station.genre.some(s => s.name === sortedByGenres.id)
+				)
+			}
+			return stations
+		},
+		[sortedByGenres.style, sortedByGenres.id]
+	)
 
 	const sortByNewest = useCallback((stations: Station[]): Station[] => {
 		return [...stations].sort((a, b) => b.id - a.id)
@@ -72,11 +98,11 @@ const StationsList: FC = () => {
 		return [...numbers, ...latinWords, ...cyrillicWords]
 	}, [])
 
-
-	const filteredStations = useMemo(() => {	
+	const filteredStations = useMemo(() => {
 		if (!stations.length) return []
+
 		let result = filterByGenres(stations)
-		
+
 		switch (sortedBy.id) {
 			case 'newest':
 				return sortByNewest(result)
@@ -85,10 +111,19 @@ const StationsList: FC = () => {
 			default:
 				return result
 		}
-	}, [stations, sortedBy.id, sortedByGenres, filterByGenres, sortByNewest, sortByAlphabet])
+	}, [
+		stations,
+		sortedBy.id,
+		sortedByGenres,
+		filterByGenres,
+		sortByNewest,
+		sortByAlphabet,
+	])
 
-	if (stationsLoading) return <div className={s.loading}>Loading podcasts...</div>
-	if (stationsError) return <div className={s.error}>Error: {stationsError}</div>
+	if (stationsLoading)
+		return <div className={s.loading}>Loading podcasts...</div>
+	if (stationsError)
+		return <div className={s.error}>Error: {stationsError}</div>
 
 	const handleCardClick = (id: number) => {
 		setActiveId(prevId => (prevId === id ? null : id))
@@ -96,15 +131,17 @@ const StationsList: FC = () => {
 
 	return (
 		<ul className={cn(s.list, { [s.columns]: !isGrid })}>
-			{filteredStations.map(station => (
-				<li key={station.id}>
-					<StationCard
-						station={station}
-						isActive={activeId === station.id}
-						onClick={handleCardClick}
-					/>
-				</li>
-			))}
+			<AnimatePresence>
+				{filteredStations.map(station => (
+					<li key={station.id}>
+						<StationCard
+							station={station}
+							isActive={activeId === station.id}
+							onClick={handleCardClick}
+						/>
+					</li>
+				))}
+			</AnimatePresence>
 		</ul>
 	)
 }

@@ -2,12 +2,12 @@ import cn from 'classnames'
 import { FC, useRef, useState } from 'react'
 import { BiDotsVerticalRounded } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
-
 import { useStore } from '../../../store/store'
 import { Station } from '../../../types/api'
 import Dropdown from '../../Dropdown/Dropdown'
 import s from './StationCard.module.scss'
 import StationCardExtraOptions from './StationCardExtraOptions/StationCardExtraOptions'
+import { motion, useIsPresent } from 'framer-motion'
 
 interface StationCardProps {
 	station: Station
@@ -23,6 +23,15 @@ const StationCard: FC<StationCardProps> = ({ station, isActive, onClick }) => {
 	const openDropdown = () => setIsDropdownOpen(true)
 	const closeDropdown = () => setIsDropdownOpen(false)
 	const { isGrid } = useStore()
+	const isPresent = useIsPresent()
+	const animations = {
+		style: {
+			position: isPresent ? 'static' : 'absolute',
+		},
+		initial: { opacity: 0 },
+		animate: { opacity: 1 },
+		transition: { stiffness: 400 },
+	}
 
 	const handleDotsClick = () => {
 		if (isDropdownOpen) {
@@ -37,7 +46,9 @@ const StationCard: FC<StationCardProps> = ({ station, isActive, onClick }) => {
 	}
 
 	return (
-		<div
+		<motion.div
+			{...(animations as any)}
+			layout
 			className={cn(
 				s.cardWrapper,
 				{ [s.isActive]: isActive },
@@ -45,11 +56,8 @@ const StationCard: FC<StationCardProps> = ({ station, isActive, onClick }) => {
 			)}
 			ref={parentRef}
 		>
-			<button
-				type='button'
-				className={s.card}
-				onClick={() => onClick(id)}
-			>
+			{station.new ? <span className={s.textNew}>New</span> : ''}
+			<button type="button" className={s.card} onClick={() => onClick(id)}>
 				<div
 					className={s.cardIcon}
 					dangerouslySetInnerHTML={{
@@ -78,7 +86,7 @@ const StationCard: FC<StationCardProps> = ({ station, isActive, onClick }) => {
 					onCloseDropDown={closeDropdown}
 				/>
 			</Dropdown>
-		</div>
+		</motion.div>
 	)
 }
 

@@ -1,0 +1,16 @@
+.accentColor {
+	color: var(--brand-accent);
+	cursor: pointer;
+}
+
+.btn {
+	position: absolute;
+	top: 1.6rem;
+	right: 1.6rem;
+	color: var(--neutrals-400);
+	transition: color var(--transition);
+
+	&:hover {
+		color: var(--neutrals-300);
+	}
+}

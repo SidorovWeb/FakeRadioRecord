@@ -9,13 +9,15 @@ import {
 } from './slices/genresFilterSlice'
 import { createLayoutSlice, LayoutData } from './slices/layoutSlice'
 import { createSortSlice, SortData } from './slices/sortSlice'
+import { createSubscribeSlice, SubscribeData } from './slices/subscribeSlice'
 
 export type StoreState = DataStore &
 	SortData &
 	LayoutData &
 	SortedByGenres &
 	DataBanners &
-	DataPodcasts
+	DataPodcasts &
+	SubscribeData
 
 export const useStore = create<StoreState>()((...arg) => ({
 	...createDataSlice(...arg),
@@ -24,4 +26,5 @@ export const useStore = create<StoreState>()((...arg) => ({
 	...createGenresFilterSlice(...arg),
 	...createDataBannersSlice(...arg),
 	...createDataPodcastsSlice(...arg),
+	...createSubscribeSlice(...arg),
 }))

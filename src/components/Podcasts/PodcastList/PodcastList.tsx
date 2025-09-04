@@ -3,10 +3,16 @@ import { useStore } from '../../../store/store'
 import { PodcastsResult } from '../../../types/api'
 import s from './PodcastList.module.scss'
 import { PodcastCard } from '../PodcastCard/PodcastCard'
+import { AnimatePresence } from 'framer-motion'
 
 const PodcastsList: FC = () => {
-	const { fetchDataPodcasts, podcasts, sortedBy,podcastsLoading, podcastsError } = useStore()
-	
+	const {
+		fetchDataPodcasts,
+		podcasts,
+		sortedBy,
+		podcastsLoading,
+		podcastsError,
+	} = useStore()
 
 	useEffect(() => {
 		if (!podcasts.length) {
@@ -17,7 +23,7 @@ const PodcastsList: FC = () => {
 	const sortByPopular = (podcasts: PodcastsResult[]): PodcastsResult[] => {
 		const result = [...podcasts]
 		const firstElement = result.shift()
-		if(firstElement) {
+		if (firstElement) {
 			return [firstElement, ...result.reverse()]
 		}
 		return result
@@ -33,58 +39,59 @@ const PodcastsList: FC = () => {
 		const numbers: PodcastsResult[] = []
 
 		podcasts.forEach(podcast => {
-            const firstChar = podcast.name?.[0]
-            if (!firstChar) {
-                cyrillicWords.push(podcast)
-                return
-            }
+			const firstChar = podcast.name?.[0]
+			if (!firstChar) {
+				cyrillicWords.push(podcast)
+				return
+			}
 
-            if (/^\d$/.test(firstChar)) {
-                numbers.push(podcast)
-            } else if (/^[a-zA-Z]$/.test(firstChar)) {
-                latinWords.push(podcast)
-            } else {
-                cyrillicWords.push(podcast)
-            }
-        })
+			if (/^\d$/.test(firstChar)) {
+				numbers.push(podcast)
+			} else if (/^[a-zA-Z]$/.test(firstChar)) {
+				latinWords.push(podcast)
+			} else {
+				cyrillicWords.push(podcast)
+			}
+		})
 
 		const sortByName = (a: PodcastsResult, b: PodcastsResult) =>
-            a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+			a.name.toLowerCase().localeCompare(b.name.toLowerCase())
 
-        numbers.sort(sortByName)
-        latinWords.sort(sortByName)
-        cyrillicWords.sort(sortByName)
+		numbers.sort(sortByName)
+		latinWords.sort(sortByName)
+		cyrillicWords.sort(sortByName)
 
-        return [...numbers, ...latinWords, ...cyrillicWords]
-    }
-	
-	
-	 const filteredPodcasts = useMemo(() => {
+		return [...numbers, ...latinWords, ...cyrillicWords]
+	}
 
-        if (!podcasts.length) return []
+	const filteredPodcasts = useMemo(() => {
+		if (!podcasts.length) return []
 
-        switch (sortedBy.id) {
-            case 'popular':
-                return sortByPopular(podcasts)
-            case 'newest':
-                return sortByNewest(podcasts)
-            case 'alphabet':
-                return sortByAlphabet(podcasts)
-            default:
-                return [...podcasts]
-        }
-    }, [podcasts, sortedBy.id]) 
+		switch (sortedBy.id) {
+			case 'popular':
+				return sortByPopular(podcasts)
+			case 'newest':
+				return sortByNewest(podcasts)
+			case 'alphabet':
+				return sortByAlphabet(podcasts)
+			default:
+				return [...podcasts]
+		}
+	}, [podcasts, sortedBy.id])
 
-	if (podcastsLoading) return <div className={s.loading}>Loading podcasts...</div>
-	if (podcastsError) return <div className={s.error}>Error: {podcastsError}</div>
+	if (podcastsLoading)
+		return <div className={s.loading}>Loading podcasts...</div>
+	if (podcastsError)
+		return <div className={s.error}>Error: {podcastsError}</div>
 
-	
 	return (
 		<div>
 			<ul className={s.list}>
-				{filteredPodcasts.map(podcast => (
-					<PodcastCard podcast={podcast}/>
-				))}
+				<AnimatePresence>
+					{filteredPodcasts.map(podcast => (
+						<PodcastCard key={podcast.id} podcast={podcast} />
+					))}
+				</AnimatePresence>
 			</ul>
 		</div>
 	)

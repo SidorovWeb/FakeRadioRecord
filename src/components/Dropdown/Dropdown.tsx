@@ -1,6 +1,7 @@
 import cn from 'classnames'
 import { FC, useEffect, useRef, useState } from 'react'
 import s from './Dropdown.module.scss'
+import { usePositionCheck } from '../../hooks/usePositionCheck '
 
 interface DropdownProps {
 	isOpen: boolean
@@ -25,12 +26,14 @@ const Dropdown: FC<DropdownProps> = ({
 	left = false,
 	animationDuration = 300,
 }) => {
-	// const [isAnimating, setIsAnimating] = useState(false)
 	const [isVisible, setIsVisible] = useState(isOpen)
 	const [isMouseEntered, setIsMouseEntered] = useState<boolean>(false)
 	const parentElement = parentRef?.current
 	const dropdownRef = useRef<HTMLDivElement>(null)
-	const [isAlignRight, setIsAlignRight] = useState(false)
+	const { isAlignRight, checkPosition } = usePositionCheck(
+		alignRight,
+		parentRef
+	)
 
 	useEffect(() => {
 		window.addEventListener('resize', checkPosition)
@@ -58,21 +61,6 @@ const Dropdown: FC<DropdownProps> = ({
 			return () => clearTimeout(timer)
 		}
 	}, [isOpen, animationDuration, setIsDropdownOpen])
-
-	const checkPosition = () => {
-		if (parentElement) {
-			const windowWidth = window.innerWidth
-			const elementRect = parentElement.getBoundingClientRect()
-			const elementRectWidth = elementRect.width
-			const distanceToRightEdge = windowWidth - elementRect.right
-			const halfScreenWidth = windowWidth / 2
-
-			setIsAlignRight(
-				alignRight &&
-					distanceToRightEdge + elementRectWidth < halfScreenWidth
-			)
-		}
-	}
 
 	useEffect(() => {
 		const clickHandler = (event: MouseEvent) => {

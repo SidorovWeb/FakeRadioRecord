@@ -4,6 +4,7 @@ import AppRouter from '../../router/AppRouter'
 import Footer from '../Footer/Footer'
 import Header from '../Header/Header'
 import s from './Layout.module.scss'
+import { Subscribe } from '../Subscribe/Subscribe'
 
 const Layout: FC<PropsWithChildren<unknown>> = () => {
 	return (
@@ -13,6 +14,7 @@ const Layout: FC<PropsWithChildren<unknown>> = () => {
 				<AppRouter />
 			</main>
 			<Footer />
+			<Subscribe />
 		</div>
 	)
 }

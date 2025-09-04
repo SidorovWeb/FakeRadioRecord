@@ -9,6 +9,7 @@ import DynamicButton from '../../components/UI/DynamicButton/DynamicButton'
 import { SortedBy } from '../../store/slices/sortSlice'
 import s from './Podcasts.module.scss'
 import PodcastList from '../../components/Podcasts/PodcastList/PodcastList'
+import { useStore } from '../../store/store'
 
 const Podcasts: FC = () => {
 	const [activeDropdown, setActiveDropdown] = useState<
@@ -18,6 +19,7 @@ const Podcasts: FC = () => {
 		id: 'popular',
 		name: 'По популярности',
 	})
+	const { handleSubscribe } = useStore()
 
 	const openDropdown = (type: 'popularity' | 'genres' | null) => {
 		setActiveDropdown(type)
@@ -50,15 +52,13 @@ const Podcasts: FC = () => {
 						isOpen={activeDropdown === 'popularity'}
 						onClose={closeDropdown}
 					>
-						<SortFilter
-							sortedBy={sortedBy}
-							handleSelect={handleSelect}
-						/>
+						<SortFilter sortedBy={sortedBy} handleSelect={handleSelect} />
 					</Dropdown>
 				</li>
 				<li>
 					<DynamicButton
-						text='Подписки'
+						onClick={handleSubscribe}
+						text="Подписки"
 						isIconLeft
 						svgIcon={<BsCheck2 size={24} />}
 					/>
